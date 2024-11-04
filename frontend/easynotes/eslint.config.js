@@ -32,6 +32,7 @@ export default [
       "react/jsx-uses-react": "error",   
       "react/jsx-uses-vars": "error",
       'no-unused-vars': ['off', { varsIgnorePattern: '^_' }],
+      "react/prop-types": "off",
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
