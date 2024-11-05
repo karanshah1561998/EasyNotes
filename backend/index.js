@@ -6,13 +6,14 @@ const mongoConnectionString = process.env.MONGO_CONNECTION_STRING;
 mongoose.connect(mongoConnectionString);
 
 const User = require("./models/user.model");
+const Note = require("./models/note.model");
 
 const express = require("express");
 const cors = require("cors");
 const app = express();
 
 const jwt = require('jsonwebtoken');
-const { authenticationToken } = require('./utilities');
+const { authenticationToken, authenticateToken } = require('./utilities');
 
 app.use(express.json());
 
@@ -104,7 +105,7 @@ app.post("/login", async (req, res) => {
 
     if (userInfo.email == email && userInfo.password == password) {
         const user = { user: userInfo};
-        const accessToken = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
+        const accessToken = jwt.sign( user, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: "36000m",
         });
     
@@ -118,6 +119,47 @@ app.post("/login", async (req, res) => {
         return res
             .status(400)
             .json({ error: true, message: "Invalid Credentials" });
+    }
+
+});
+
+// Add Note
+app.post("/add-note", authenticateToken, async (req, res) => {
+    const { title, content, tags } = req.body;
+    const { user } = req.user.user;
+
+    if (!title) {
+        return res
+            .status(400)
+            .json({ error: true, message: "Title is required" });
+    }
+
+    if (!content) {
+        return res
+            .status(400)
+            .json({ error: true, message: "Content required" });
+    }
+
+    try {
+        const note = new Note({
+            title,
+            content,
+            tags: tags || [],
+            userId: user._id,
+        });
+
+        await note.save();
+
+        return res.json({
+            error: false,
+            note,
+            message: "Note added successfully",
+        });
+    } catch (error) {
+        console.error("Error saving note:", error);
+        return res
+            .status(500)
+            .json({ error: true, message: "Internal Server Error" })
     }
 
 });
