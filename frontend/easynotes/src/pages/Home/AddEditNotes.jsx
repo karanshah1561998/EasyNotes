@@ -1,24 +1,86 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TagInput from '../../components/Input/TagInput';
+import { MdClose } from 'react-icons/md';
 
-const AddEditNotes = () => {
+const AddEditNotes = ({ noteData, type, onClose }) => {
+
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [tags, setTags] = useState("");
+    const [error, setError] = useState(null);
+
+    const addNewNote = async () => {};
+
+    const editNote = async () => {};
+
+    const handleAddNote = () => {
+
+        if (!title) {
+            setError("Please enter the title");
+            return;
+        }
+
+        if (!content) {
+            setError("Please enter the content");
+            return;
+        }
+
+        setError("");
+
+        if (type === 'edit') {
+            editNote();
+        } else {
+            addNewNote();
+        }
+    };
+
     return (
-        <div>
+        <div className='relative'>
+
+            <button
+                onClick={onClose}
+                className='w-10 h-10 rounded-full flex items-center justify-center absolute -top-3 -right-3 hover:bg-slate-50'
+            >
+                <MdClose className='text-xl text-slate-400' />
+            </button>
+
             <div className='flex flex-col gap-2'>
                 <label className='input-label'> TITLE </label>
-                <input className='text-2xl text-slate-950 outline-none' type='text' placeholder='Go to Gym At 5 AM' />
+                <input
+                    type='text'
+                    placeholder='Add title'
+                    value={title}
+                    onChange={({ target }) => setTitle(target.value)}
+                    className='text-2xl text-slate-950 outline-none'
+                />
             </div>
+
             <div className='flex flex-col gap-2 mt-4'>
                 <label className='input-label'> CONTENT </label>
-                <textarea type='text' className='text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded' placeholder='Content' rows={10} />            
+                <textarea
+                    type='text'
+                    rows={10}
+                    placeholder='Add content' 
+                    value={content}
+                    onChange={({ target }) => setContent(target.value)}
+                    className='text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded'
+                />            
             </div>
+
             <div className='mt-3'>
                 <label className='input-label'> TAGS </label>
-                <TagInput />
+                <TagInput tags={tags} setTags={setTags}/>
             </div>
-            <button className='btn-primary font-medium mt-5 p-3' onClick={()=>{}}>
+
+            {error && <p className='text-red-500 text-xs pt-4'> {error} </p>}
+
+            <button
+                onClick={handleAddNote}
+                className='btn-primary font-medium mt-5 p-3'
+            >
                 ADD
             </button>
+
         </div>
     );
 };
