@@ -79,18 +79,12 @@ Ensure you have the following installed:
    ```bash
    cd ../frontend/easynotes
    
-2. **Install backend dependencies:**
+2. **Install frontend dependencies:**
    
    ```bash
    npm install
-   
-3. **Create a .env file in the backend directory:**
-   
-   ```bash
-   MONGO_CONNECTION_STRING = your_mongo_connection_string
-   ACCESS_TOKEN_SECRET = your_jwt_secret
 
-4. **Start the Frontend Server:**
+3. **Start the Frontend Server:**
    
    ```bash
    npm run dev
