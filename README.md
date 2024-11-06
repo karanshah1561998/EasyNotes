@@ -4,7 +4,7 @@ EasyNotes is a full-stack note-taking application built with the **MERN stack** 
 
 ## Live Demo
 
-Access the live app here: [EasyNotes](https://easynotes.netlify.app/)
+Access the live app here: [EasyNotes](https://easynotesks.netlify.app/)
 
 ## Features
 
