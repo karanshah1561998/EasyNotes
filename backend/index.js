@@ -17,11 +17,17 @@ const { authenticationToken, authenticateToken } = require('./utilities');
 
 app.use(express.json());
 
-app.use(
-    cors({
-        origin: "*",
-    })
-);
+// app.use(
+//     cors({
+//         origin: "*",
+//     })
+// );
+
+app.use(cors({
+    origin: "https://easynotesks.netlify.app", // Replace with your Netlify URL
+    methods: "GET, POST, PUT, DELETE",
+    credentials: true
+}));
 
 app.get("/", (req, res) => {
     res.redirect("/login");
