@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import Toast from '../../components/ToastMessage/Toast';
 import EmptyCard from '../../components/EmptyCard/EmptyCard';
-import AddNote from '../../assets/images/add-document.png';
+import AddNote from '../../assets/images/add-note.jpg';
+import NoNote from '../../assets/images/no-document.jpg'
 
 const Home = () => {
 
@@ -108,7 +109,29 @@ const Home = () => {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
+    const updateIsPinned = async (noteData) => {
+        const noteId = noteData._id;
+
+        try {
+            const response = await axiosInstance.put(`/update-note-pinned/${noteId}`, {
+                isPinned: !noteData.isPinned,
+            });
+
+            if (response.data && !response.data.error) {
+                showToastMessage("Note Updated Successfully");
+                getAllNotes();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleClearSearch = () => {
+        setIsSearch(false);
+        getAllNotes();
+    };
 
     useEffect(() => {
         getAllNotes();
@@ -118,7 +141,7 @@ const Home = () => {
 
     return (
         <>
-            <Navbar userInfo={userInfo} onSearchNote={onSearchNote} />
+            <Navbar userInfo={userInfo} onSearchNote={onSearchNote} handleClearSearch={handleClearSearch} />
 
             <div className='container mx-auto'>
                 {allNotes.length > 0 ? (
@@ -132,15 +155,15 @@ const Home = () => {
                                 tags={item.tags}
                                 isPinned={item.isPinned}
                                 onEdit={() => handleEdit(item)}
-                                onDelete={()=> deleteNote(item)}
-                                onPinNote={()=>{}}
+                                onDelete={() => deleteNote(item)}
+                                onPinNote={() => updateIsPinned(item)}
                             />
                         ))}
                     </div>
                 ) : (
                     <EmptyCard
-                        imgSrc={AddNote}
-                        message="Start creating your first note! Click the Add button to note down your thoughts, ideas, and reminders. Let's get started!"
+                        imgSrc={ isSearch ? NoNote : AddNote }
+                        message={ isSearch ? `Oops! No notes found matching your search.` : `Start creating your first note! Click the Add button to note down your thoughts, ideas, and reminders. Let's get started!`}
                     />
                 )}
             </div>
