@@ -201,12 +201,14 @@ const Home = () => {
                 />
             </Modal>
 
-            <Toast
-                isShown = {showToastMsg.isShown}
-                message = {showToastMsg.message}
-                type = {showToastMsg.type}
-                onClose = {handleCloseToast}
-            />
+            {showToastMsg.isShown && 
+                <Toast
+                    isShown = {showToastMsg.isShown}
+                    message = {showToastMsg.message}
+                    type = {showToastMsg.type}
+                    onClose = {handleCloseToast}
+                />
+            }
 
         </>
     )
