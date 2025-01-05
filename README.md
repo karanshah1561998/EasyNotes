@@ -1,6 +1,6 @@
 # EasyNotes
 
-EasyNotes is a full-stack note-taking application built with the **MERN stack** (MongoDB, Express, React, Node.js). This application enables users to register, log in, create, edit, pin, and delete notes. Additionally, users can search their notes by keywords.
+EasyNotes is a full-stack note-taking application built with the **MERN stack** (MongoDB, Express, React, Node.js). It enables users to register, log in, create, edit, pin, and delete notes. Additionally, users can search their notes by keywords.
 
 ## Live Demo
 
@@ -10,7 +10,7 @@ Access the live app here: [EasyNotes](https://easynotesks.netlify.app/)
 
 1. **User Authentication**
    - Secure user registration and login.
-   - Protected routes, accessible only by authenticated users.
+   - Protected routes are accessible only by authenticated users.
    - Authentication with JWT (JSON Web Tokens) for secure access to user-specific data.
 
 2. **CRUD Operations for Notes**
@@ -19,7 +19,7 @@ Access the live app here: [EasyNotes](https://easynotesks.netlify.app/)
 
 3. **Pin/Unpin Notes**
    - Users can toggle the "pinned" status of notes.
-   - Pinned notes appear at the top of the notes list for easy access.
+   - Pinned notes appear at the top of the list for easy access.
 
 4. **Search and Filter**
    - Search for notes by keywords in the title or content.
