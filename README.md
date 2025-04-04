@@ -28,7 +28,7 @@ Access the live app here: [EasyNotes](https://easynotesks.netlify.app/)
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/your-username/easynotes.git
+   https://github.com/karanshah1561998/EasyNotes.git
    cd easynotes
    
 2. **Install dependencies:**
